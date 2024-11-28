@@ -34,7 +34,7 @@ export default function NavbarRoutes({ user }: Props) {
             <ul className="flex items-center">
               <li className="">
                 <Link
-                  href="/previous-events"
+                  href="/"
                   className="text-xl font-semibold text-pes-red"
                 >
                   PES Events
