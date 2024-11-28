@@ -15,7 +15,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { Loader2 } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
+import { useState } from "react";
 
 type FormProps = {
   email: string;
@@ -24,6 +25,7 @@ type FormProps = {
 const ResetPasswordForm = ({ email }: FormProps) => {
   const router = useRouter();
   const { toast } = useToast();
+
   const formSchema = z.object({
     password: z
       .string()
@@ -50,6 +52,13 @@ const ResetPasswordForm = ({ email }: FormProps) => {
   });
 
   const { isSubmitting, isValid, errors } = form.formState;
+  const [isPasswordHidden, setIsPasswordHidden] = useState(true);
+  const toggleIsPasswordHidden = () =>
+    setIsPasswordHidden((current) => !current);
+
+  const [isConfirmPasswordHidden, setIsConfirmPasswordHidden] = useState(true);
+  const toggleIsConfirmPasswordHidden = () =>
+    setIsConfirmPasswordHidden((current) => !current);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const { password, confirmPassword } = values;
@@ -85,9 +94,7 @@ const ResetPasswordForm = ({ email }: FormProps) => {
   }
   return (
     <div className="flex h-full w-full flex-col justify-center">
-      <h1 className="my-4 text-2xl font-bold text-secondary">
-        Reset Your Password
-      </h1>
+      <h1 className="my-4 text-2xl font-bold text-primary">Reset Password</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
@@ -95,9 +102,25 @@ const ResetPasswordForm = ({ email }: FormProps) => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-secondary">Password</FormLabel>
+                <FormLabel className="text-primary">Password</FormLabel>
                 <FormControl>
-                  <Input {...field} type="password" />
+                  <div className="relative">
+                    <Input
+                      {...field}
+                      type={isPasswordHidden ? "password" : "text"}
+                    />
+                    {isPasswordHidden ? (
+                      <EyeOff
+                        className="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer"
+                        onClick={toggleIsPasswordHidden}
+                      />
+                    ) : (
+                      <Eye
+                        className="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer"
+                        onClick={toggleIsPasswordHidden}
+                      />
+                    )}
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -108,11 +131,25 @@ const ResetPasswordForm = ({ email }: FormProps) => {
             name="confirmPassword"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-secondary">
-                  Confirm Password
-                </FormLabel>
+                <FormLabel className="text-primary">Confirm Password</FormLabel>
                 <FormControl>
-                  <Input {...field} type="password" />
+                  <div className="relative">
+                    <Input
+                      {...field}
+                      type={isConfirmPasswordHidden ? "password" : "text"}
+                    />
+                    {isConfirmPasswordHidden ? (
+                      <EyeOff
+                        className="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer"
+                        onClick={toggleIsConfirmPasswordHidden}
+                      />
+                    ) : (
+                      <Eye
+                        className="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer"
+                        onClick={toggleIsConfirmPasswordHidden}
+                      />
+                    )}
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -122,7 +159,7 @@ const ResetPasswordForm = ({ email }: FormProps) => {
             type="submit"
             disabled={!isValid || isSubmitting}
             variant="secondary"
-            className="bg-[#041631] text-white"
+            className="bg-[#041631] text-white hover:bg-slate-600"
           >
             {isSubmitting ? (
               <Loader2 className="h-4 w-4 animate-spin" />

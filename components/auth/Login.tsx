@@ -14,10 +14,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { signIn } from "next-auth/react";
-import { Info } from "lucide-react";
+import { Eye, EyeOff, Info } from "lucide-react";
 import Link from "next/link";
 import { toast } from "../ui/use-toast";
 import { Icon } from "@iconify/react";
+import { useState } from "react";
 
 type LoginProps = {
   callbackUrl?: string;
@@ -38,6 +39,10 @@ const Login = ({ callbackUrl, error }: LoginProps) => {
     },
   });
   const { isSubmitting, isValid, errors } = form.formState;
+
+  const [isPasswordHidden, setIsPasswordHidden] = useState(true);
+  const toggleIsPasswordHidden = () =>
+    setIsPasswordHidden((current) => !current);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
@@ -76,7 +81,7 @@ const Login = ({ callbackUrl, error }: LoginProps) => {
               <FormItem>
                 <FormLabel className="text-primary">Email Address</FormLabel>
                 <FormControl>
-                  <Input placeholder="e.g xyz@gmail.com" {...field} />
+                  <Input {...field} type="email" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -89,7 +94,23 @@ const Login = ({ callbackUrl, error }: LoginProps) => {
               <FormItem>
                 <FormLabel className="text-primary">Password</FormLabel>
                 <FormControl>
-                  <Input {...field} type="password" />
+                  <div className="relative">
+                    <Input
+                      {...field}
+                      type={isPasswordHidden ? "password" : "text"}
+                    />
+                    {isPasswordHidden ? (
+                      <EyeOff
+                        className="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer"
+                        onClick={toggleIsPasswordHidden}
+                      />
+                    ) : (
+                      <Eye
+                        className="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer"
+                        onClick={toggleIsPasswordHidden}
+                      />
+                    )}
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>

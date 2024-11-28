@@ -9,6 +9,7 @@ import { Logo } from "../Logo";
 import { SessionUser } from "@/lib/auth/utils";
 import Notifications from "./Notifications";
 import { Role } from "@prisma/client";
+import MaxWidthWrapper from "../MaxWidthWrapper";
 
 interface Props {
   user: SessionUser | null;
@@ -17,14 +18,12 @@ interface Props {
 export default function NavbarRoutes({ user }: Props) {
   const pathname = usePathname();
 
-  const isTeacherPage = pathname?.includes("/teacher");
   const isAdminPage = pathname?.includes("/admin");
-  const isBrowsePage = pathname === "/browse";
   const isDashboard = pathname?.includes("/dashboard");
 
   return (
     <>
-      <div className="flex-1 md:block">
+      <div className="mx-4 flex-1 md:block">
         <div className="flex w-full justify-between gap-x-2 align-middle">
           <Link href="/">
             <Logo />
@@ -33,10 +32,7 @@ export default function NavbarRoutes({ user }: Props) {
           {!isDashboard && (
             <ul className="flex items-center">
               <li className="">
-                <Link
-                  href="/"
-                  className="text-xl font-semibold text-pes-red"
-                >
+                <Link href="/" className="text-xl font-semibold text-pes-red">
                   PES Events
                 </Link>
               </li>
@@ -45,7 +41,7 @@ export default function NavbarRoutes({ user }: Props) {
         </div>
       </div>
 
-      <div className="ml-auto flex items-center gap-x-2 ">
+      <div className="ml-auto flex items-center gap-x-2">
         {user?.role === Role.ADMIN && isAdminPage ? (
           <Link href="/dashboard">
             <Button size="sm" variant="ghost">
@@ -61,7 +57,7 @@ export default function NavbarRoutes({ user }: Props) {
           </Link>
         ) : null}
 
-        {/* <UserButton user={user} /> */}
+        <UserButton user={user} />
       </div>
     </>
   );

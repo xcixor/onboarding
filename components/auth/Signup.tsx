@@ -18,6 +18,8 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
+import { useState } from "react";
+import { Loader2, UserPlus } from "lucide-react";
 
 const Signup = () => {
   const router = useRouter();
@@ -44,29 +46,41 @@ const Signup = () => {
       password: "",
     },
   });
+  const [loading, setLoading] = useState(false);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const res = await fetch("/api/users", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(values),
-    });
-    const response = await res.json();
-    if (!res.ok) {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+      const response = await res.json();
+      if (!res.ok) {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: response.message,
+        });
+      } else {
+        router.push(`/auth/email-verification-sent?t=${response.userId}`);
+        toast({
+          variant: "default",
+          title: "Success",
+          description: response.message,
+        });
+      }
+    } catch (error) {
       toast({
         variant: "destructive",
         title: "Error",
-        description: response.message,
+        description: "Something went wrong, please try again later.",
       });
-    } else {
-      router.push(`/auth/email-verification-sent?t=${response.userId}`);
-      toast({
-        variant: "default",
-        title: "Success",
-        description: response.message,
-      });
+    } finally {
+      setLoading(false);
     }
   }
   return (
@@ -160,7 +174,12 @@ const Signup = () => {
           variant="secondary"
           className="bg-pes-blue font-semibold text-primary text-white hover:bg-pes-red"
         >
-          Signup
+          {loading ? (
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          ) : (
+            <UserPlus className="mr-2 h-4 w-4" />
+          )}
+          Sign Up
         </Button>
       </form>
     </Form>
