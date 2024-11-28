@@ -7,9 +7,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Logo } from "../Logo";
 import { SessionUser } from "@/lib/auth/utils";
-import Notifications from "./Notifications";
 import { Role } from "@prisma/client";
-import MaxWidthWrapper from "../MaxWidthWrapper";
 
 interface Props {
   user: SessionUser | null;
@@ -50,7 +48,7 @@ export default function NavbarRoutes({ user }: Props) {
             </Button>
           </Link>
         ) : user?.role === Role.ADMIN ? (
-          <Link href="/dashboard/profile/admin/events">
+          <Link href="/dashboard/profile/admin/users">
             <Button size="sm" variant="outline" className="h-auto py-2">
               Admin Mode
             </Button>
