@@ -5,8 +5,8 @@ const PrivacyPage = () => {
   return (
     <>
       <Head>
-        <title>Privacy Policy | PES Events</title>
-        <meta name="description" content="Privacy Policy for PES Events" />
+        <title>Privacy Policy | PES Onboarding</title>
+        <meta name="description" content="Privacy Policy for PES Onboarding" />
       </Head>
       <PrivacyPolicy />
     </>

@@ -5,10 +5,10 @@ const TermsAndConditionsPage = () => {
   return (
     <>
       <Head>
-        <title>Terms and conditions | PES Events</title>
+        <title>Terms and conditions | PES Onboarding</title>
         <meta
           name="description"
-          content="Terms and Conditions for PES Events"
+          content="Terms and Conditions for PES Onboarding"
         />
       </Head>
       <TermsAndConditions />
