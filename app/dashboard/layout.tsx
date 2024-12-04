@@ -1,5 +1,15 @@
 import { Navbar } from "../../components/dashboard/Navbar";
 import { Sidebar } from "../../components/navbar/Sidebar";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: {
+    default: "PES Onboarding",
+    template: `%s | PES Onboarding`,
+  },
+  description:
+    "Join us on a transformative journey at PES Onboarding, where innovation meets education, developing the leaders of tomorrow's successful enterprises.",
+};
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
