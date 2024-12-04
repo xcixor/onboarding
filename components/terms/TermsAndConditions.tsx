@@ -5,7 +5,7 @@ const TermsAndConditions = () => {
       <h1 className="mb-4 text-center text-4xl font-semibold text-pes-red">
         Terms and Conditions
       </h1>
-      <p className="mb-3 text-pes-blue">Welcome to PES Events!</p>
+      <p className="mb-3 text-pes-blue">Welcome to PES Onboarding!</p>
       <p className="mb-3 text-pes-blue">
         This Privacy Policy describes Our policies and procedures on the
         collection, use and disclosure of Your information when You use the
@@ -14,7 +14,7 @@ const TermsAndConditions = () => {
       </p>
       <p className="mb-3 text-pes-blue">
         By accessing this website we assume you accept these terms and
-        conditions. Do not continue to use PES Events if you do not agree to
+        conditions. Do not continue to use PES Onboarding if you do not agree to
         take all of the terms and conditions stated on this page.
       </p>
       <p className="mb-3 text-pes-blue">
@@ -37,8 +37,8 @@ const TermsAndConditions = () => {
 
       <h3 className="mb-3 text-2xl font-semibold text-pes-red">Cookies</h3>
       <p className="mb-3 text-pes-blue">
-        We employ the use of cookies. By accessing PES Events, you agreed to use
-        cookies in agreement with the Private Equity Support&rsquo;s Privacy
+        We employ the use of cookies. By accessing PES Onboarding, you agreed to
+        use cookies in agreement with the Private Equity Support&rsquo;s Privacy
         Policy.
       </p>
       <p className="mb-3 text-pes-blue">
@@ -51,7 +51,7 @@ const TermsAndConditions = () => {
       <h3 className="mb-3 text-2xl font-semibold text-pes-red">License</h3>
       <p className="mb-3 text-pes-blue">
         Unless otherwise stated, Private Equity Support and/or its licensors own
-        the intellectual property rights for all material on PES Events. All
+        the intellectual property rights for all material on PES Onboarding. All
         intellectual property rights are reserved. You may access this from PES
         Events for your own personal use subjected to restrictions set in these
         terms and conditions.
@@ -59,16 +59,16 @@ const TermsAndConditions = () => {
       <p className="mb-3 text-pes-blue">You must not:</p>
       <ul className="list-disc pl-4 text-pes-blue">
         <li className="m-3">
-          <p>Republish material from PES Events</p>
+          <p>Republish material from PES Onboarding</p>
         </li>
         <li className="m-3">
-          <p>Sell, rent or sub-license material from PES Events</p>
+          <p>Sell, rent or sub-license material from PES Onboarding</p>
         </li>
         <li className="m-3">
-          <p>Reproduce, duplicate or copy material from PES Events</p>
+          <p>Reproduce, duplicate or copy material from PES Onboarding</p>
         </li>
         <li className="m-3">
-          <p>Redistribute content from PES Events</p>
+          <p>Redistribute content from PES Onboarding</p>
         </li>
       </ul>
       <p className="mb-3 text-pes-blue">
