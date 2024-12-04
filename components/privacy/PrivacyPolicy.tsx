@@ -114,7 +114,7 @@ const PrivacyPolicy = () => {
         </li>
         <li className="m-3">
           <p>
-            <strong>Website</strong> refers to PES Events, accessible from{" "}
+            <strong>Website</strong> refers to PES Onboarding, accessible from{" "}
             <Link
               href="https://academy.privateequity-support.com/"
               rel="external nofollow noopener"

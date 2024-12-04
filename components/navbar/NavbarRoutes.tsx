@@ -31,7 +31,7 @@ export default function NavbarRoutes({ user }: Props) {
             <ul className="flex items-center">
               <li className="">
                 <Link href="/" className="text-xl font-semibold text-pes-red">
-                  PES Events
+                  PES Onboarding
                 </Link>
               </li>
             </ul>

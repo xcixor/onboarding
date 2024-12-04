@@ -46,6 +46,7 @@ model User {
   forgotPasswordTokenExpiry DateTime?
   verifyToken               String?
   verifyTokenExpiry         DateTime?
+  Survey                    Survey[]
 
   @@map("users")
 }
@@ -96,4 +97,120 @@ model GCPData {
   assetType        String
   validityDuration Int      @default(7)
   downloadUrl      String
+}
+
+model Survey {
+  id          String           @id @default(cuid())
+  title       String
+  description String?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  published   Boolean          @default(false)
+  createdBy   User             @relation(fields: [createdById], references: [id])
+  createdById String
+  questions   Question[]
+  responses   SurveyResponse[]
+
+  @@index([createdById])
+}
+
+model Question {
+  id          String               @id @default(cuid())
+  survey      Survey               @relation(fields: [surveyId], references: [id], onDelete: Cascade)
+  surveyId    String
+  title       String
+  type        QuestionType
+  required    Boolean              @default(false)
+  order       Int
+  explanation QuestionExplanation?
+  options     QuestionOption[]
+  validation  QuestionValidation?
+  logic       QuestionLogic[]
+  answers     QuestionAnswer[]
+
+  @@index([surveyId])
+}
+
+enum QuestionType {
+  MULTIPLE_CHOICE
+  SINGLE_CHOICE
+  TEXT
+  LONG_TEXT
+  EMAIL
+  NUMBER
+  DATE
+  TIME
+  PHONE
+  RATING
+  FILE_UPLOAD
+  CHECKBOX
+}
+
+model QuestionOption {
+  id         String   @id @default(cuid())
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  questionId String
+  text       String
+  order      Int
+
+  @@index([questionId])
+}
+
+model QuestionExplanation {
+  id         String     @id @default(cuid())
+  question   Question   @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  questionId String     @unique
+  text       String
+  mediaUrl   String?
+  mediaType  MediaType?
+
+  @@index([questionId])
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+  AUDIO
+}
+
+model QuestionValidation {
+  id         String   @id @default(cuid())
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  questionId String   @unique
+  rules      Json // Stored as array of ValidationRule objects
+
+  @@index([questionId])
+}
+
+model QuestionLogic {
+  id         String   @id @default(cuid())
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  questionId String
+  conditions Json // Stored as array of LogicCondition objects
+  action     Json // Stored as LogicAction object
+
+  @@index([questionId])
+}
+
+model SurveyResponse {
+  id           String           @id @default(cuid())
+  survey       Survey           @relation(fields: [surveyId], references: [id], onDelete: Cascade)
+  surveyId     String
+  respondentId String?
+  submittedAt  DateTime         @default(now())
+  answers      QuestionAnswer[]
+
+  @@index([surveyId])
+}
+
+model QuestionAnswer {
+  id               String         @id @default(cuid())
+  question         Question       @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  questionId       String
+  surveyResponse   SurveyResponse @relation(fields: [surveyResponseId], references: [id], onDelete: Cascade)
+  surveyResponseId String
+  value            String // Stored as string, converted to appropriate type in application
+
+  @@index([questionId])
+  @@index([surveyResponseId])
 }
